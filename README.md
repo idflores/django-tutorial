@@ -63,3 +63,34 @@ pip install Django
 <h2 align="center">The Django Project Tutorial</h2>
 
 Tutorial Reference: [https://docs.djangoproject.com/en/1.11/intro/tutorial01/](https://docs.djangoproject.com/en/1.11/intro/tutorial01/)
+
+<br>
+
+### Start a new Django project
+
+```bash
+django-admin startproject nameOfYourSite
+```
+
+<br>
+
+### Models and Database Migration
+
+from: [https://docs.djangoproject.com/en/1.11/intro/tutorial02/#activating-models](https://docs.djangoproject.com/en/1.11/intro/tutorial02/#activating-models)
+
+_**The 3-Step Guide to Model Changes**_
+* _**change**_ your models (in `models.py`)
+* run `python manage.py makemigrations` to _**create**_ migration for those changes
+* run `python manage.py migrate` to _**apply**_ those changes to the databases
+
+<br>
+
+### Django/Python3 Shell (important)
+
+Rather than calling `python` in our `virtualenv`, we use
+
+```bash
+python manage.py shell
+```
+
+`manage.py` will set "the DJANGO_SETTINGS_MODULE environment variable, which gives Django the Python import path to your mysite/settings.py file."

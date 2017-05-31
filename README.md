@@ -346,6 +346,108 @@ Anytime you change the admin options for a model:
 
 <br>
 
+<h2 align="center">Packaging Your App for Production</h2>
+
+### Prerequisites
+
+**Packaging Tool:** `setuptools` [(documentation)](https://pypi.python.org/pypi/setuptools)
+
+#### Install
+
+With `virtualenv` activated...
+
+```bash
+pip install setuptools
+```
+
+### Package The Django application
+1. outside the project directory, make a new directory to hold the application
+    * prepend your app with `django-` to designate the Python package as Django specific
+2. copy the Django app directory from the project directory to the new directory outside the project directory
+3. create a `README.rst` file
+4. create a `LICENSE` file
+5. create a `setup.py` file
+
+Example content:
+```Python
+import os
+from setuptools import find_packages, setup
+
+with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as readme:
+    README = readme.read()
+
+# allow setup.py to be run from any path
+os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
+
+setup(
+    name='django-polls',
+    version='0.1',
+    packages=find_packages(),
+    include_package_data=True,
+    license='BSD License',  # example license
+    description='A simple Django app to conduct Web-based polls.',
+    long_description=README,
+    url='https://www.example.com/',
+    author='Your Name',
+    author_email='yourname@example.com',
+    classifiers=[
+        'Environment :: Web Environment',
+        'Framework :: Django',
+        'Framework :: Django :: X.Y',  # replace "X.Y" as appropriate
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: BSD License',  # example license
+        'Operating System :: OS Independent',
+        'Programming Language :: Python',
+        # Replace these appropriately if you are stuck on Python 2.
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Topic :: Internet :: WWW/HTTP',
+        'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
+    ],
+)
+```
+
+6. make a `docs` directory
+7. create a `MANIFEST.in` file
+
+Example content:
+```MANIFEST
+include LICENSE
+include README.rst
+recursive-include <app_name>/static *
+recursive-include <app_name>/templates *
+recursive-include docs *
+```
+
+8. Your folder structure should resemble the following:
+    * <parent_directory>/
+      * bin/
+      * django-<app_name>/ _**<-- this is your new application package**_
+        * docs/
+        * <app_name>/ _**<-- this is your copied application**_
+        * LICENSE
+        * MANIFEST.in
+        * README.rst
+        * setup.py
+      * include/
+      * lib/
+      * <django_project_name>/
+        * db.sqlite3
+        * manage.py
+        * <django_project_name>/
+        * <app_name>/ _**<-- copy this!**_
+
+9. Build the package from with an activated `virtualenv` in the application directory
+
+```bash
+python setup.py sdist
+```
+
+10. Distribute the generated `.tar.gz` file in the new `/django-<app_name>/dist` directory
+
+<br>
+
 <h1 align="center">Resources</h1>
 
 * [Django](https://www.djangoproject.com)

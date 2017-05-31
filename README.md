@@ -343,3 +343,11 @@ Anytime you change the admin options for a model:
 * create a model class
   * convention: `class <model_name>Admin(admin.ModelAdmin):`
 * pass it as a subsequent argument to `admin.site.register()`
+
+<br>
+
+<h1 align="center">Resources</h1>
+
+* [Django](https://www.djangoproject.com)
+* [Django Packages](https://djangopackages.org/)
+* [Python Packages](https://pypi.python.org/pypi)

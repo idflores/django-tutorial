@@ -199,6 +199,39 @@ def view_name(request):
 
 <br>
 
+<h3 align="center">Generic Views</h3>
+
+For some of the views defined in the [tutorial](https://docs.djangoproject.com/en/1.11/intro/tutorial04/#use-generic-views-less-code-is-better), the author indicates that Django has generic views that can perform the same action.
+
+Specifically, `DetailView` and `ListView` can be called by extending the  `django.views.generic` module.
+
+The following is an example of using these generic views with the conventional naming syntax:
+
+```Python
+# <app_name>/views.py
+
+from django.views import generic
+
+class IndexView(generic.ListView):
+    template_name = '<app_name>/<model_name>_<template_name>.html'
+
+    # overrides the automatically generated context
+    context_object_name = '<context_object_name>'
+
+    def get_queryset(self):
+        """Return the last five published <Objects>."""
+        return <Object>.objects.order_by('-pub_date')[:5]
+
+
+class DetailView(generic.DetailView):
+    model = <model_name>
+    template_name = '<app_name>/<model_name>_<template_name>.html'
+```
+
+
+
+<br>
+
 <h2 align="center">Templates</h2>
 Note: Django will automatically search for a directory called `templates` in each application context.
 
@@ -221,7 +254,7 @@ Django chooses application templates by *order*. To prevent confusion, it is con
 
 In your `urls.py` file:
 ```Python
-# urls.py
+# <app_name>/urls.py
 
 from django.conf.urls import url
 from . import views
@@ -237,7 +270,36 @@ urlpatterns = [
 
 In your `templates/<app_name>/<template_name>.html` file:
 ```html
-<!-- templates/<app_name>/<template_name>.html -->
+<!-- <app_name>/templates/<app_name>/<template_name>.html -->
 
 <a href="{% url '<app_name>:<view_name>' %}"
 ```
+
+<br>
+
+<h2 align="center">Test Development</h2>
+<h3 align="center"><a href="https://docs.djangoproject.com/en/1.11/topics/testing/">see "Testing in Django"</a></h3>
+
+
+### Notes
+* Django's testing system will automatically search for any file whose name begins with "**test**".
+  * Examples: "tests.py", "test_ui.py"
+* Check code coverage to spot untested or dead code
+
+### Running the test
+
+```bash
+python manage.py test <app_name>
+```
+
+### Testing Guidlines
+* use a separate `TestCase` for each `model` or `view`
+* use a separate test method for each set of conditions you want to test
+* use test method names that describe their function
+* If you can’t test a piece of code, that code should be refactored or removed
+
+### Testing Tools with Django
+* [Selenium](http://seleniumhq.org/)
+  * supported with Django's [`LiveServerTestCase`](https://docs.djangoproject.com/en/1.11/topics/testing/tools/#django.test.LiveServerTestCase)
+* `coverage.py` [(documentation)](http://coverage.readthedocs.io/en/coverage-4.4.1/)
+  * Django integration [here](https://docs.djangoproject.com/en/1.11/topics/testing/advanced/#topics-testing-code-coverage)

@@ -348,6 +348,8 @@ Anytime you change the admin options for a model:
 
 <h2 align="center">Packaging Your App for Production</h2>
 
+<h3 align="center"><a href="./django-polls/dist/">Project Package</a></h3>
+
 ### Prerequisites
 
 **Packaging Tool:** `setuptools` [(documentation)](https://pypi.python.org/pypi/setuptools)

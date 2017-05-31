@@ -333,3 +333,13 @@ In your template file, add the following to the top:
 * [Deploying static files](https://docs.djangoproject.com/en/1.11/howto/static-files/deployment/)
 * `staticfiles` [documentation](https://docs.djangoproject.com/en/1.11/ref/contrib/staticfiles/)
 * [how to use](https://docs.djangoproject.com/en/1.11/howto/static-files/) `staticfiles`
+
+<br>
+
+<h2 align="center">Customizing Djagno's Admin Form</h2>
+
+### General Practice
+Anytime you change the admin options for a model:
+* create a model class
+  * convention: `class <model_name>Admin(admin.ModelAdmin):`
+* pass it as a subsequent argument to `admin.site.register()`

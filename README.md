@@ -23,7 +23,7 @@ virtualenv directory/name
 To use Python3 instead:
 
 ```bash
-virtualenv -p Python3 directory/name
+virtualenv -p python3 directory/name
 ```
 
 ### Usage
